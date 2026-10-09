@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Monika N | AI/ML &amp; Full Stack Developer</title>
+<meta name="description" content="Portfolio of Monika N, a final-year BCA student at VIT Vellore building machine learning and full stack web projects." />
+<meta property="og:title" content="Monika N | AI/ML & Full Stack Developer" />
+<meta property="og:description" content="Final-year BCA student at VIT Vellore. Projects in machine learning, optimization algorithms and full stack web development." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  /* ---------- Design tokens ---------- */
+  :root {
+    --bg: #ffffff;
+    --soft: #f4f4f4;
+    --line: #e4e4e4;
+    --ink: #141414;
+    --muted: #5c5c5c;
+    --green: #22c55e;
+    --radius-pill: 999px;
+    --radius-card: 24px;
+    --wrap: min(1180px, 92vw);
+    --font: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  h1, h2, h3, p { margin: 0; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 8px; }
+  .wrap { width: var(--wrap); margin-inline: auto; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Buttons & pills ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 22px; border-radius: var(--radius-pill);
+    font: 600 0.95rem var(--font); cursor: pointer; border: 1px solid var(--ink);
+    transition: transform .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn-dark { background: var(--ink); color: #fff; }
+  .btn-dark:hover { transform: translateY(-2px); }
+  .btn-light { background: #fff; color: var(--ink); }
+  .btn-light:hover { background: var(--ink); color: #fff; }
+  .btn svg { width: 14px; height: 14px; }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border: 1px solid var(--line); border-radius: var(--radius-pill);
+    background: #fff; font-size: 0.88rem; font-weight: 500;
+  }
+  a.pill { transition: border-color .2s ease, transform .2s ease; }
+  a.pill:hover { border-color: var(--ink); transform: translateX(-3px); }
+  .pill svg { width: 15px; height: 15px; }
+
+  /* ---------- Navbar ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; }
+  .status { box-shadow: 0 6px 20px rgba(0,0,0,.08); border-color: #fff; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); position: relative; flex: none; }
+  .dot::after {
+    content: ""; position: absolute; inset: -4px; border-radius: 50%;
+    border: 2px solid var(--green); opacity: .5; animation: ping 2s ease-out infinite;
+  }
+  @keyframes ping { from { transform: scale(.6); opacity: .6; } to { transform: scale(1.6); opacity: 0; } }
+  .nav-links { display: flex; gap: 36px; font-size: 0.92rem; font-weight: 500; }
+  .nav-links a sup { font-size: .68rem; color: #9a9a9a; margin-left: 3px; font-weight: 500; }
+  .nav-links a:hover { text-decoration: underline; text-underline-offset: 6px; }
+  .menu-btn {
+    display: none; width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid var(--line); background: #fff; cursor: pointer; place-items: center;
+  }
+  .menu-btn span, .menu-btn span::before, .menu-btn span::after {
+    display: block; width: 18px; height: 2px; background: var(--ink); position: relative; content: "";
+  }
+  .menu-btn span::before { position: absolute; top: -6px; }
+  .menu-btn span::after { position: absolute; top: 6px; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; min-height: min(100vh - 70px, 820px); overflow: hidden; }
+  .hero-inner { position: relative; height: 100%; min-height: inherit; }
+  .name {
+    position: absolute; left: 0; right: 0; top: 4%;
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; line-height: .95;
+    font-size: clamp(3.4rem, 14.2vw, 12.6rem);
+    white-space: nowrap;
+  }
+  .name .outline { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+  /* The one orchestrated moment: letters rise into place on load */
+  .name span { display: inline-block; animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .name span:nth-child(2) { animation-delay: .15s; }
+  @keyframes rise { from { transform: translateY(40%); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .portrait {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    height: 74%; aspect-ratio: 3 / 4; z-index: 2; pointer-events: none;
+  }
+  .portrait img, .portrait svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom; }
+  .portrait img { filter: grayscale(1) contrast(1.05); }
+
+  .hero-left { position: absolute; left: 0; bottom: 8%; z-index: 3; max-width: 330px; }
+  .hero-left h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+  .hero-left p { color: var(--muted); font-size: .95rem; margin-bottom: 20px; }
+  .hero-social { position: absolute; right: 0; bottom: 8%; z-index: 3; display: grid; gap: 14px; justify-items: end; }
+  .hero-social .pill { padding: 11px 20px; min-width: 128px; box-shadow: 0 4px 14px rgba(0,0,0,.05); }
+
+  /* ---------- Sections ---------- */
+  section { padding: 100px 0; }
+  .section-head { margin-bottom: 48px; max-width: 640px; }
+  .section-head h2 { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+  .section-head p { margin-top: 14px; color: var(--muted); }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; }
+  .about-grid p { font-size: 1.12rem; color: #333; max-width: 60ch; }
+  .about-grid p + p { margin-top: 18px; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .stat { background: var(--soft); border-radius: 20px; padding: 24px; }
+  .stat strong { display: block; font-size: 2.2rem; font-weight: 800; line-height: 1.1; }
+  .stat span { color: var(--muted); font-size: .9rem; }
+
+  /* Skills */
+  .skill-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .skill-group { border: 1px solid var(--line); border-radius: var(--radius-card); padding: 28px; }
+  .skill-group h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chips li { padding: 7px 15px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: .88rem; font-weight: 500; background: #fff; }
+
+  /* Projects */
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .project { background: var(--soft); border-radius: 28px; padding: 34px; display: flex; flex-direction: column; gap: 20px; }
+  .project-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .project h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; }
+  .project ul.points { display: grid; gap: 12px; }
+  .project ul.points li { position: relative; padding-left: 18px; font-size: .95rem; color: #333; }
+  .project ul.points li::before { content: ""; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
+  .ph { background: #fff; border: 1px dashed #b5b5b5; border-radius: 6px; padding: 0 5px; font-weight: 600; font-size: .86em; white-space: nowrap; }
+  .project .chips li { background: #fff; }
+  .project-links { display: flex; gap: 10px; margin-top: auto; padding-top: 6px; flex-wrap: wrap; }
+  .project-links .btn { padding: 10px 18px; font-size: .88rem; }
+
+  /* Education */
+  .edu { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .edu-main { background: var(--ink); color: #fff; border-radius: 28px; padding: 38px; }
+  .edu-main h3 { font-size: 1.9rem; font-weight: 800; line-height: 1.15; }
+  .edu-main p { color: #cfcfcf; margin-top: 8px; }
+  .edu-main .cgpa { margin-top: 28px; display: inline-flex; gap: 10px; align-items: baseline; }
+  .edu-main .cgpa strong { font-size: 3rem; font-weight: 800; line-height: 1; }
+  .edu-side { display: grid; gap: 14px; }
+  .edu-row { border: 1px solid var(--line); border-radius: 20px; padding: 22px 26px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .edu-row strong { font-size: 1.05rem; }
+  .edu-row span { color: var(--muted); font-size: .9rem; }
+  .edu-row b { font-size: 1.4rem; font-weight: 800; }
+
+  /* Contact */
+  .contact { background: var(--soft); border-radius: 36px; padding: clamp(28px, 5vw, 64px); display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; }
+  .contact h2 { font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; }
+  .contact-links { margin-top: 28px; display: grid; gap: 12px; justify-items: start; }
+  form { display: grid; gap: 14px; }
+  label { font-size: .88rem; font-weight: 600; display: grid; gap: 6px; }
+  input, textarea {
+    font: 500 1rem var(--font); color: var(--ink); padding: 14px 18px;
+    border: 1px solid var(--line); border-radius: 18px; background: #fff; width: 100%;
+  }
+  textarea { min-height: 130px; resize: vertical; }
+  input:focus, textarea:focus { outline: 2px solid var(--ink); border-color: var(--ink); }
+  .error { color: #b3261e; font-size: .82rem; min-height: 1em; font-weight: 500; }
+  #form-status { font-size: .9rem; font-weight: 600; min-height: 1.4em; }
+
+  /* Footer */
+  footer { padding: 40px 0 48px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: .9rem; }
+  .foot ul { display: flex; gap: 20px; }
+  .foot a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .nav-links { gap: 22px; }
+    .about-grid, .contact, .edu { grid-template-columns: 1fr; }
+    .projects, .skill-groups { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 820px) {
+    .menu-btn { display: grid; }
+    .nav-cta { display: none; }
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0; background: #fff;
+      flex-direction: column; gap: 0; padding: 8px 4vw 18px; border-bottom: 1px solid var(--line);
+      display: none;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 1.05rem; }
+
+    .hero { min-height: auto; }
+    .hero-inner { display: flex; flex-direction: column; padding-top: 28px; }
+    .name { position: static; flex-direction: column; font-size: clamp(3.6rem, 22vw, 7rem); gap: 0; }
+    .portrait { position: relative; left: auto; transform: none; height: auto; width: min(320px, 78%); margin: -6vw auto 0; }
+    .hero-left { position: static; max-width: none; margin-top: 8px; }
+    .hero-social { position: static; display: flex; flex-wrap: wrap; justify-content: flex-start; margin: 22px 0 8px; }
+    .hero-social .pill { min-width: 0; }
+    section { padding: 72px 0; }
+  }
+  @media (max-width: 520px) {
+    .status { font-size: .78rem; padding: 7px 12px; }
+    .project, .edu-main { padding: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <span class="pill status"><span class="dot" aria-hidden="true"></span>Open to internships &amp; placements</span>
+
+      <nav aria-label="Primary">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#work">Work<sup>[4]</sup></a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn-dark nav-cta" href="#contact">Let's talk
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== HERO ===== -->
+    <section class="hero" style="padding:0" aria-label="Introduction">
+      <div class="wrap hero-inner">
+        <h1 class="name" aria-label="Monika N">
+          <span class="outline">Monika</span>
+          <span>N</span>
+        </h1>
+
+        <!--
+          PORTRAIT: save your photo as "portrait.png" (transparent background, head and shoulders)
+          in the same folder as this file. It is shown in grayscale automatically.
+          Until then, the silhouette below is used.
+        -->
+        <div class="portrait">
+          <svg viewBox="0 0 300 400" role="img" aria-label="Portrait placeholder" preserveAspectRatio="xMidYMax meet">
+            <defs>
+              <linearGradient id="sil" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#d9d9d9"/><stop offset="1" stop-color="#bdbdbd"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 400c0-82 56-128 150-128s150 46 150 128z" fill="url(#sil)"/>
+            <rect x="126" y="215" width="48" height="64" rx="20" fill="url(#sil)"/>
+            <ellipse cx="150" cy="150" rx="62" ry="76" fill="url(#sil)"/>
+          </svg>
+          <img src="portrait.png" alt="Portrait of Monika N" onerror="this.remove()" />
+        </div>
+
+        <div class="hero-left">
+          <h2>AI/ML &amp; Full Stack Developer</h2>
+          <p>Building intelligent, user-friendly web applications backed by machine learning and clean engineering.</p>
+          <a class="btn btn-dark" href="#work">See my work
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+
+        <ul class="hero-social" aria-label="Social links">
+          <li><a class="pill" href="https://github.com/your-username" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.200-1.500 6.200-6.800a5.300 5.300 0 0 0-1.400-3.700 4.900 4.900 0 0 0-.1-3.700s-1.200-.4-3.800 1.400a13.300 13.300 0 0 0-7 0C6.400 2.900 5.200 3.300 5.200 3.300a4.900 4.900 0 0 0-.1 3.700A5.300 5.300 0 0 0 3.700 10.700c0 5.300 3.200 6.500 6.200 6.800a3.400 3.400 0 0 0-.9 2.600V22"/></svg>GitHub</a></li>
+          <li><a class="pill" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>LinkedIn</a></li>
+          <li><a class="pill" href="mailto:your.email@example.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m22 7-10 6L2 7"/></svg>Email</a></li>
+          <li><a class="pill" href="resume.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h5"/></svg>Resume</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="section-head"><h2 id="about-title">About me</h2></div>
+        <div class="about-grid">
+          <div>
+            <p>I'm a final-year BCA student at VIT Vellore who likes turning algorithms and data into things people can actually use: a route finder, a price predictor, a blood donor matching app.</p>
+            <p>My work sits between AI/ML and full stack web development. I also use Claude, ChatGPT, Gemini and Antigravity to prototype faster and review my own code, while keeping the design and engineering decisions my own.</p>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>8.36</strong><span>CGPA at VIT Vellore</span></div>
+            <div class="stat"><strong>4</strong><span>Projects built</span></div>
+            <div class="stat"><strong>2</strong><span>AI/ML projects</span></div>
+            <div class="stat"><strong>4</strong><span>AI tools in my workflow</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" aria-labelledby="skills-title" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-head"><h2 id="skills-title">Skills</h2></div>
+        <div class="skill-groups">
+          <div class="skill-group"><h3>Languages</h3>
+            <ul class="chips"><li>Python</li><li>Java</li><li>JavaScript</li></ul></div>
+          <div class="skill-group"><h3>Web development</h3>
+            <ul class="chips"><li>HTML</li><li>CSS</li><li>Bootstrap</li><li>jQuery</li><li>Node.js</li><li>MongoDB</li><li>JSON</li></ul></div>
+          <div class="skill-group"><h3>AI &amp; machine learning</h3>
+            <ul class="chips"><li>Ant Colony Optimization</li><li>Predictive modeling</li><li>Data preprocessing</li><li>Data analysis</li></ul></div>
+          <div class="skill-group"><h3>AI tools</h3>
+            <ul class="chips"><li>Claude</li><li>ChatGPT</li><li>Gemini</li><li>Antigravity</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="work" aria-labelledby="work-title" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="work-title">Selected work</h2>
+          <p>Dashed boxes are placeholders. Replace them with your real numbers before sharing.</p>
+        </div>
+
+        <div class="projects">
+          <!-- Project 1 -->
+          <article class="project">
+            <div class="project-top"><span class="pill">Full stack</span></div>
+            <h3>LifeLink: Blood Donor Matching &amp; Request App</h3>
+            <ul class="points">
+              <li>Engineered a donor matching platform with Node.js and MongoDB that filters registered donors by blood group and location, connecting requestors to compatible donors in under <span class="ph">X</span> seconds.</li>
+              <li>Built responsive registration and request interfaces with HTML, CSS, JavaScript, jQuery and Bootstrap, cutting form completion time by <span class="ph">X%</span> across <span class="ph">N</span> test users.</li>
+              <li>Exposed JSON-based endpoints for donor search and request tracking, serving <span class="ph">N</span>+ records with response times below <span class="ph">X</span> ms.</li>
+            </ul>
+            <ul class="chips"><li>Node.js</li><li>MongoDB</li><li>jQuery</li><li>Bootstrap</li><li>JSON</li></ul>
+            <div class="project-links">
+              <a class="btn btn-dark" href="#" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-light" href="https://github.com/your-username/lifelink" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project">
+            <div class="project-top"><span class="pill">Artificial intelligence</span></div>
+            <h3>Campus Navigation System</h3>
+            <ul class="points">
+              <li>Implemented Ant Colony Optimization in Python with pheromone deposit and evaporation to find shortest routes across <span class="ph">N</span> campus blocks, shortening average paths by <span class="ph">X%</span> over a baseline search.</li>
+              <li>Tuned colony size, evaporation rate and iteration count, reaching stable optimal routes within <span class="ph">N</span> iterations.</li>
+              <li>Built a source-to-destination route selector that returns directions in under <span class="ph">X</span> seconds.</li>
+            </ul>
+            <ul class="chips"><li>Python</li><li>Ant Colony Optimization</li><li>Graph search</li></ul>
+            <div class="project-links">
+              <a class="btn btn-dark" href="#" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-light" href="https://github.com/your-username/campus-navigation" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project">
+            <div class="project-top"><span class="pill">Machine learning</span></div>
+            <h3>Car Price Prediction</h3>
+            <ul class="points">
+              <li>Trained regression models in Python on a <span class="ph">N</span>-record vehicle dataset after cleaning, encoding categorical features and scaling, reaching an R&sup2; of <span class="ph">X</span>.</li>
+              <li>Engineered features such as vehicle age, mileage, brand and fuel type, and compared <span class="ph">N</span> algorithms with cross-validation to lower mean absolute error by <span class="ph">X%</span>.</li>
+              <li>Packaged the best model for repeatable predictions on new listings.</li>
+            </ul>
+            <ul class="chips"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>Regression</li></ul>
+            <div class="project-links">
+              <a class="btn btn-dark" href="#" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-light" href="https://github.com/your-username/car-price-prediction" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project">
+            <div class="project-top"><span class="pill">Web application</span></div>
+            <h3>Cab Booking System</h3>
+            <ul class="points">
+              <li>Developed a cab booking application covering ride requests and booking management with <span class="ph">your tech stack</span>, handling <span class="ph">N</span> concurrent bookings in testing.</li>
+              <li>Designed the booking flow and data model to keep ride records consistent, reducing booking errors by <span class="ph">X%</span>.</li>
+            </ul>
+            <ul class="chips"><li><span class="ph" style="border:0;background:none;padding:0">Add your stack</span></li></ul>
+            <div class="project-links">
+              <a class="btn btn-dark" href="#" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-light" href="https://github.com/your-username/cab-booking" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EDUCATION ===== -->
+    <section id="education" aria-labelledby="edu-title" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-head"><h2 id="edu-title">Education</h2></div>
+        <div class="edu">
+          <div class="edu-main">
+            <h3>Bachelor of Computer Applications</h3>
+            <p>VIT Vellore &middot; Final year</p>
+            <div class="cgpa"><strong>8.36</strong><span>CGPA</span></div>
+          </div>
+          <div class="edu-side">
+            <div class="edu-row"><div><strong>Class 12</strong><br /><span>Higher secondary</span></div><b>79%</b></div>
+            <div class="edu-row"><div><strong>Class 10</strong><br /><span>Secondary</span></div><b>82.6%</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" aria-labelledby="contact-title" style="padding-top:0">
+      <div class="wrap">
+        <div class="contact">
+          <div>
+            <h2 id="contact-title">Let's build something intelligent and impactful together.</h2>
+            <p style="margin-top:16px;color:var(--muted);max-width:42ch">I'm looking for internships and entry-level roles in AI/ML and web development.</p>
+            <div class="contact-links">
+              <a class="pill" href="mailto:your.email@example.com">your.email@example.com</a>
+              <a class="pill" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">linkedin.com/in/your-profile</a>
+              <a class="pill" href="https://github.com/your-username" target="_blank" rel="noopener">github.com/your-username</a>
+            </div>
+          </div>
+
+          <form id="contact-form" novalidate>
+            <label for="f-name">Name
+              <input id="f-name" name="name" type="text" autocomplete="name" required />
+              <span class="error" id="e-name"></span></label>
+            <label for="f-email">Email
+              <input id="f-email" name="email" type="email" autocomplete="email" required />
+              <span class="error" id="e-email"></span></label>
+            <label for="f-msg">Message
+              <textarea id="f-msg" name="message" required></textarea>
+              <span class="error" id="e-msg"></span></label>
+            <button class="btn btn-dark" type="submit" style="justify-self:start">Send message</button>
+            <p id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap foot">
+      <span>&copy; <span id="year">2026</span> Monika N</span>
+      <ul>
+        <li><a href="https://github.com/your-username" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:your.email@example.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+<script>
+  /* ===== EDIT THIS: where contact-form messages should go ===== */
+  const MY_EMAIL = "your.email@example.com";
+
+  // Footer year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Mobile menu
+  const menuBtn = document.getElementById("menu-btn");
+  const navLinks = document.getElementById("nav-links");
+  menuBtn.addEventListener("click", () => {
+    const open = navLinks.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open);
+    menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+  navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+  }));
+
+  // Contact form: validate, then open the visitor's email app with the message filled in.
+  // (To receive messages without an email app, swap this for a Formspree or EmailJS endpoint.)
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const msg = form.message.value.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    document.getElementById("e-name").textContent = name ? "" : "Enter your name.";
+    document.getElementById("e-email").textContent = emailOk ? "" : "Enter a valid email address.";
+    document.getElementById("e-msg").textContent = msg ? "" : "Write a short message.";
+    if (!name || !emailOk || !msg) { status.textContent = ""; return; }
+
+    const subject = encodeURIComponent("Portfolio enquiry from " + name);
+    const body = encodeURIComponent(msg + "\n\nFrom: " + name + " <" + email + ">");
+    status.textContent = "Opening your email app to send the message.";
+    window.location.href = "mailto:" + MY_EMAIL + "?subject=" + subject + "&body=" + body;
+    form.reset();
+  });
+</script>
+</body>
+</html>
